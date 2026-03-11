@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Pharmacy Management</title>
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="page-bg">
+    <div class="card small">
+        <div class="brand">⚕️ Pharmacy</div>
+        <h2>Sign in</h2>
+
+        <form th:action="@{/login}" method="post" class="form">
+            <div class="input-row">
+                <label>Email</label>
+                <input type="email" name="username" placeholder="you@clinic.com" required />
+            </div>
+
+            <div class="input-row">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required />
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn primary">Login</button>
+                <a class="btn ghost" th:href="@{/register}">Create account</a>
+            </div>
+
+            <div class="error" th:if="${param.error}">
+                <p>Invalid credentials</p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
