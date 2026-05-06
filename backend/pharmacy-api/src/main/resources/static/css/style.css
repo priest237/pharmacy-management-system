@@ -1,0 +1,30 @@
+:root{
+  --green-100: #eaf6ef;
+  --green-200: #c8edd6;
+  --green-500: #2e9b63;
+  --accent: #2e9b63;
+  --white: #ffffff;
+  --muted: #6b7280;
+}
+*{box-sizing:border-box}
+body,html{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,var(--green-100),#f6fff6)}
+.page-bg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:var(--white);border-radius:12px;box-shadow:0 8px 30px rgba(46,155,99,0.08);padding:28px;max-width:420px;width:100%;text-align:left}
+.card.small{max-width:360px}
+.brand{font-weight:700;color:var(--accent);font-size:20px;margin-bottom:8px}
+h2{margin:0 0 12px 0;color:#1f2937}
+.lead{color:var(--muted);margin-top:8px}
+.form{display:grid;gap:12px}
+.input-row label{display:block;font-size:13px;color:#374151;margin-bottom:6px}
+.input-row input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid #e6eef0;background:#fbfffb;font-size:14px;transition:all .18s ease}
+.input-row input:focus{outline:none;box-shadow:0 4px 18px rgba(46,155,99,0.12);border-color:var(--green-200)}
+.actions{display:flex;gap:10px;align-items:center;margin-top:8px}
+.btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--white);box-shadow:0 6px 18px rgba(46,155,99,0.12);transition:transform .12s ease,box-shadow .12s ease}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(46,155,99,0.16)}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(46,155,99,0.12)}
+.error p{color:#b91c1c;background:#fff1f2;padding:8px;border-radius:6px;margin-top:10px}
+@media (max-width:480px){.card{padding:18px;border-radius:10px}} 
+
+/* small visual pharmacy cross */
+.brand:before{content:'+';display:inline-block;margin-right:8px;color:#fff;background:var(--accent);width:24px;height:24px;border-radius:6px;text-align:center;line-height:24px;font-weight:700}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register - Pharmacy Management</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" href="data:;base64,=" />
+</head>
+<body>
+<div class="page-bg">
+    <div class="card">
+        <div class="brand">⚕️ Pharmacy</div>
+        <h2>Create account</h2>
+
+        <form th:action="@{/register}" th:object="${user}" method="post" class="form">
+            <div class="input-row">
+                <label>Full Name</label>
+                <input type="text" th:field="*{fullName}" placeholder="John Doe" required />
+            </div>
+
+            <div class="input-row">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" placeholder="you@clinic.com" required />
+            </div>
+
+            <div class="input-row">
+                <label>Phone</label>
+                <input type="text" th:field="*{phone}" placeholder="(555) 123-4567" />
+            </div>
+
+            <div class="input-row">
+                <label>Password</label>
+                <input type="password" th:field="*{password}" placeholder="••••••••" required />
+            </div>
+
+            <div class="input-row">
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPassword" placeholder="••••••••" required />
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn primary">Register</button>
+                <a class="btn ghost" th:href="@{/login}">Have an account? Login</a>
+            </div>
+
+            <div class="error" th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
