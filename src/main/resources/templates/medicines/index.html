@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicine Catalog | PharmaCare</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+        .catalog-card__description {
+            display: block;
+            max-height: 3.6em; /* Show approximately 2 lines of text */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .catalog-card__description::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1.2em; /* Space for the "Read more" link */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .read-more-link {
+            display: block;
+            text-align: right;
+            color: #007bff;
+            cursor: pointer;
+            margin-top: -1.2em; /* Pull up the link to overlap the gradient */
+            background: white;
+            padding: 0 0.5em;
+        }
+
+        .read-more-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard-shell-modern">
+    <aside class="dashboard-sidebar-modern">
+        <div class="dashboard-sidebar-modern__brand">
+            <div class="dashboard-logo-mark">Rx</div>
+            <div>
+                <p class="dashboard-eyebrow">Pharmacy System</p>
+                <h1 class="dashboard-brand-title">PharmaCare</h1>
+            </div>
+        </div>
+
+        <nav class="dashboard-sidebar-modern__nav" aria-label="Primary">
+            <a class="dashboard-nav-item" th:classappend="${activePage == 'dashboard'} ? ' active'" th:href="@{/dashboard}">
+                <span>Dashboard Overview</span>
+            </a>
+            <a class="dashboard-nav-item" th:classappend="${activePage == 'medicines'} ? ' active'" th:href="@{/medicines}">
+                <span>Medicines</span>
+            </a>
+            <a class="dashboard-nav-item" th:classappend="${activePage == 'cart'} ? ' active'" th:href="@{/cart}">
+                <span>Cart</span>
+                <span class="dashboard-nav-badge" th:text="${cartItemCount}">0</span>
+            </a>
+            <a class="dashboard-nav-item" th:if="${role == 'ADMIN'}" th:classappend="${activePage == 'inventory'} ? ' active'" th:href="@{/admin/medicines}">
+                <span>Inventory</span>
+            </a>
+            <a class="dashboard-nav-item" th:if="${role == 'ADMIN'}" th:classappend="${activePage == 'audit-logs'} ? ' active'" th:href="@{/admin/audit-logs}">
+                <span>Audit Logs</span>
+            </a>
+            <a class="dashboard-nav-item" th:classappend="${activePage == 'settings'} ? ' active'" th:href="@{/settings}">
+                <span>Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="dashboard-main-modern">
+        <header class="dashboard-topbar-modern">
+            <div class="dashboard-topbar-modern__intro">
+                <p class="dashboard-eyebrow">Medicine Catalog</p>
+                <h2 class="dashboard-title">Available Medicines</h2>
+                <p class="dashboard-panel-subtitle">
+                    Every medicine shown here is loaded from the database with its current price, stock, and expiry data.
+                </p>
+            </div>
+        </header>
+
+        <section class="catalog-grid">
+            <article class="catalog-card" th:each="medicine : ${medicines}">
+                <div class="catalog-card__media">
+                    <img th:if="${medicine.imageUrl != null and !#strings.isEmpty(medicine.imageUrl)}"
+                         th:src="${medicine.imageUrl}"
+                         th:alt="${medicine.name}" />
+                    <div class="catalog-card__placeholder" th:if="${medicine.imageUrl == null or #strings.isEmpty(medicine.imageUrl)}">
+                        <span th:text="${#strings.substring(medicine.name, 0, 1)}">M</span>
+                    </div>
+                </div>
+
+                <div class="catalog-card__body">
+                    <div class="catalog-card__header">
+                        <h3 th:text="${medicine.name}">Medicine Name</h3>
+                        <span class="availability-badge"
+                              th:classappend="${medicine.stockQuantity > 0} ? ' in-stock' : ' out-stock'"
+                              th:text="${medicine.stockQuantity > 0} ? 'In Stock' : 'Unavailable'">In Stock</span>
+                    </div>
+
+                    <p class="catalog-card__description" th:text="${medicine.description}">Medicine description</p>
+                    <a class="read-more-link" href="#" onclick="toggleDescription(this); return false;">Read more</a>
+
+                    <div class="catalog-card__meta">
+                        <span th:text="'CFA ' + ${#numbers.formatDecimal(medicine.price, 1, 2)}">CFA 0.00</span>
+                        <span th:text="'Stock: ' + ${medicine.stockQuantity}">Stock: 0</span>
+                        <span th:text="'Expiry: ' + ${#temporals.format(medicine.expiryDate, 'dd MMM yyyy')}">Expiry</span>
+                    </div>
+
+                    <div class="catalog-card__actions">
+                        <a class="btn primary button-link" th:href="@{/medicines/{id}(id=${medicine.id})}">View details</a>
+                        <form th:if="${medicine.stockQuantity > 0}" th:action="@{/cart/add}" method="post" class="inline-cart-form">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <input type="hidden" name="medicineId" th:value="${medicine.id}" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <input type="hidden" name="redirectTo" value="/medicines" />
+                            <button type="submit" class="btn subtle">Add to cart</button>
+                        </form>
+                        <a class="btn subtle button-link" th:if="${role == 'ADMIN'}" th:href="@{/admin/medicines/{id}/edit(id=${medicine.id})}">Edit</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="dashboard-empty-state" th:if="${medicines == null or #lists.isEmpty(medicines)}">
+            <strong>No medicines available yet.</strong>
+            <span>The catalog will appear here once medicines are added to the database.</span>
+        </section>
+    </main>
+</div>
+<script>
+function toggleDescription(link) {
+    const desc = link.previousElementSibling;
+    if (desc.style.display === '-webkit-box') {
+        desc.style.display = 'block';
+        desc.style.webkitLineClamp = 'none';
+        link.textContent = 'Read less';
+    } else {
+        desc.style.display = '-webkit-box';
+        desc.style.webkitLineClamp = '3';
+        link.textContent = 'Read more';
+    }
+}
+</script>
+</body>
+</html>

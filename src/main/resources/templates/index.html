@@ -1,22 +1,199 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pharmacy Management System</title>
+    <title>Medit | Pharmacy Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
-<div class="page-bg">
-    <div class="card">
-        <div class="brand">⚕️ Pharmacy</div>
-        <h2>Welcome to Pharmacy Management System</h2>
-        <p class="lead">Manage your pharmacy operations efficiently.</p>
-        <div style="margin-top: 30px; display: flex; gap: 15px;">
-            <a href="/login" class="btn btn-primary">Login</a>
-            <a href="/register" class="btn btn-secondary">Register</a>
+<body class="medit-body">
+<header class="medit-navbar">
+    <div class="medit-shell medit-navbar__inner">
+        <a class="medit-logo" th:href="@{/}">MEDIT</a>
+
+        <nav class="medit-nav">
+            <a href="#home">Home</a>
+            <a href="#how-to-use">How to use</a>
+            <a href="#functionalities">Functionalities</a>
+        </nav>
+
+        <div class="medit-nav-actions">
+            <a class="medit-login" th:href="@{/login}">Login</a>
+            <a class="medit-register" th:href="@{/register}">Register</a>
         </div>
     </div>
-</div>
+</header>
+
+<main>
+    <section class="medit-hero" id="home">
+        <div class="medit-shell medit-hero__grid">
+            <div class="medit-hero__content reveal-on-scroll reveal-visible">
+                <span class="medit-badge">Trusted by 2500+ Patients</span>
+                <h1 class="medit-title">
+                    Life-Changing Healthcare <span>for You</span>
+                </h1>
+                <p class="medit-copy">
+                    Find nearby pharmacies, reserve medicine quickly, and get dependable healthcare support
+                    through one calm, modern experience built for daily use.
+                </p>
+
+                <form class="medit-search" action="#" method="get">
+                    <input type="text" placeholder="Search medicine, pharmacy, or symptom" aria-label="Search medicine" />
+                    <button type="submit">Search</button>
+                </form>
+
+                <div class="medit-hero-actions">
+                    <a class="landing-button landing-button--primary" th:href="@{/login}">Login</a>
+                    <a class="landing-button landing-button--secondary" th:href="@{/register}">Register</a>
+                </div>
+
+                <div class="medit-stats">
+                    <article>
+                        <strong>450+</strong>
+                        <span>Pharmacies</span>
+                    </article>
+                    <article>
+                        <strong>200+</strong>
+                        <span>Daily Deliveries</span>
+                    </article>
+                    <article>
+                        <strong>24/7</strong>
+                        <span>Availability</span>
+                    </article>
+                </div>
+            </div>
+
+            <div class="medit-hero__visual reveal-on-scroll reveal-visible">
+                <div class="medit-blob"></div>
+                <div class="medit-product-card">
+                    <svg class="medit-product-svg" viewBox="0 0 520 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Medicine app illustration">
+                        <defs>
+                            <linearGradient id="screen" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#eef7ff" />
+                                <stop offset="100%" stop-color="#d7ebff" />
+                            </linearGradient>
+                            <linearGradient id="pill" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#0f7ae5" />
+                                <stop offset="100%" stop-color="#6db7ff" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="74" y="42" width="290" height="390" rx="38" fill="#0b1320"/>
+                        <rect x="90" y="60" width="258" height="354" rx="28" fill="url(#screen)"/>
+                        <rect x="116" y="95" width="122" height="18" rx="9" fill="#a8d4ff"/>
+                        <rect x="116" y="128" width="208" height="88" rx="22" fill="#ffffff"/>
+                        <circle cx="156" cy="171" r="28" fill="url(#pill)"/>
+                        <rect x="198" y="151" width="93" height="12" rx="6" fill="#0f7ae5"/>
+                        <rect x="198" y="173" width="71" height="10" rx="5" fill="#8aa8c4"/>
+                        <rect x="116" y="235" width="208" height="52" rx="18" fill="#ffffff"/>
+                        <rect x="135" y="252" width="110" height="11" rx="5.5" fill="#0f7ae5"/>
+                        <rect x="135" y="271" width="86" height="9" rx="4.5" fill="#8aa8c4"/>
+                        <rect x="116" y="304" width="208" height="52" rx="18" fill="#ffffff"/>
+                        <rect x="135" y="321" width="100" height="11" rx="5.5" fill="#0f7ae5"/>
+                        <rect x="135" y="340" width="78" height="9" rx="4.5" fill="#8aa8c4"/>
+                        <rect x="388" y="122" width="82" height="210" rx="28" fill="#ffffff"/>
+                        <rect x="409" y="94" width="40" height="52" rx="14" fill="url(#pill)"/>
+                        <rect x="406" y="166" width="46" height="16" rx="8" fill="#d7ebff"/>
+                        <rect x="406" y="192" width="46" height="16" rx="8" fill="#d7ebff"/>
+                        <rect x="406" y="218" width="46" height="16" rx="8" fill="#d7ebff"/>
+                        <rect x="406" y="244" width="46" height="16" rx="8" fill="#d7ebff"/>
+                        <rect x="406" y="270" width="46" height="16" rx="8" fill="#d7ebff"/>
+                        <circle cx="398" cy="358" r="34" fill="#0f7ae5" opacity="0.14"/>
+                        <circle cx="424" cy="372" r="22" fill="#0f7ae5" opacity="0.2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="medit-section" id="how-to-use">
+        <div class="medit-shell">
+            <div class="medit-section__heading reveal-on-scroll">
+                <p class="medit-section__eyebrow">How It Works</p>
+                <h2>Get Your Medicine in 3 Simple Steps</h2>
+            </div>
+
+            <div class="medit-steps">
+                <article class="medit-step-card reveal-on-scroll">
+                    <span class="medit-step-card__number">01</span>
+                    <h3>Search &amp; Find</h3>
+                    <p>Search medicine or pharmacy availability in seconds through the Medit platform.</p>
+                </article>
+
+                <article class="medit-step-card reveal-on-scroll">
+                    <span class="medit-step-card__number">02</span>
+                    <h3>Secure Reservation</h3>
+                    <p>Reserve what you need instantly and receive a clear confirmation for your request.</p>
+                </article>
+
+                <article class="medit-step-card reveal-on-scroll">
+                    <span class="medit-step-card__number">03</span>
+                    <h3>Pick-up or Delivery</h3>
+                    <p>Choose whether to collect your medicine in person or receive it through delivery.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="medit-section medit-section--soft" id="functionalities">
+        <div class="medit-shell">
+            <div class="medit-section__heading reveal-on-scroll">
+                <p class="medit-section__eyebrow">Functionalities</p>
+                <h2>Powerful Features for Your Health</h2>
+            </div>
+
+            <div class="medit-features">
+                <article class="medit-feature-card reveal-on-scroll">
+                    <span class="medit-feature-card__icon">💊</span>
+                    <h3>Smart Medicine Search</h3>
+                    <p>Quickly discover available medicine by name, need, or nearby pharmacy coverage.</p>
+                </article>
+
+                <article class="medit-feature-card reveal-on-scroll">
+                    <span class="medit-feature-card__icon">📍</span>
+                    <h3>Pharmacy Locator</h3>
+                    <p>See trusted pharmacy locations and choose the most convenient option for you.</p>
+                </article>
+
+                <article class="medit-feature-card reveal-on-scroll">
+                    <span class="medit-feature-card__icon">🛡️</span>
+                    <h3>Safe Reservation Flow</h3>
+                    <p>Reserve medicines securely before pickup so you avoid unnecessary waiting or shortages.</p>
+                </article>
+
+                <article class="medit-feature-card reveal-on-scroll">
+                    <span class="medit-feature-card__icon">🚚</span>
+                    <h3>Flexible Fulfillment</h3>
+                    <p>Switch between in-store pickup and fast delivery depending on your schedule and needs.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+  const revealItems = document.querySelectorAll(".reveal-on-scroll");
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealItems.forEach(function (item) {
+      observer.observe(item);
+    });
+  } else {
+    revealItems.forEach(function (item) {
+      item.classList.add("reveal-visible");
+    });
+  }
+</script>
 </body>
 </html>
